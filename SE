@@ -1,0 +1,79 @@
+# Software Engineering - Scenario-Based Examination
+
+**Instructions:** Answer any **five** of the following six questions. Each question carries 10 marks. Answers should be descriptive and based on the scenarios provided. Numerical questions should be solved with clear steps.
+
+---
+
+**Scenario for Questions 1 & 2:**
+
+*   *Innovate Solutions Ltd.* has been approached by *HealthFirst Clinic*, a chain of local clinics, to develop a new Patient Management System (PMS). The current system is manual, leading to inefficiencies and errors. The new PMS aims to manage patient records, appointments, billing, and basic reporting. The HealthFirst team is enthusiastic but has some preconceived notions about software development, often heard from informal sources. They are also unsure about the best way to proceed with the project.*
+
+**Question 1 (10 Marks)**
+
+a.  The HealthFirst team believes building software is just like building a physical product, like a bridge, and that adding more programmers late in the project will definitely speed it up. Discuss these beliefs in the context of **Software Myths**. Broadly classify the types of software myths involved here. (5 Marks)
+b.  Before committing resources, Innovate Solutions needs to determine if the PMS project is viable. Explain the purpose and key activities involved in a **Feasibility Study** for this project. What are the advantages of conducting such a study? (3 Marks)
+c.  Describe the initial **Requirement Elicitation and Analysis** activities Innovate Solutions should undertake with HealthFirst Clinic staff to understand their needs for the PMS. What are the core goals of **Requirement Engineering** in this context? (2 Marks)
+
+**Question 2 (10 Marks)**
+
+a.  Innovate Solutions is considering the **Waterfall Model** for the PMS project due to the client's desire for clear, sequential phases. Describe the phases of the Waterfall Model and discuss its potential suitability (or lack thereof) for the HealthFirst PMS project, considering the core **Software Characteristics** like maintainability and usability. (5 Marks)
+b.  Alternatively, the V-Model is proposed. Explain the **V-Model** and how it integrates testing activities within the development lifecycle, contrasting it with the basic Waterfall approach. How does this relate to the broader concept of a **Perspective Process Model (SDLC)**? (3 Marks)
+c.  Briefly outline two other software characteristics (besides maintainability and usability mentioned above) that would be crucial for the success of the HealthFirst PMS. (2 Marks)
+
+---
+
+**Scenario for Questions 3 & 6:**
+
+*   *TechGiant Corp.* is developing a large-scale e-commerce platform, "ShopSphere," intended to compete globally. The project involves multiple teams working on different modules (user interface, product catalog, payment gateway, order processing, analytics). The market is highly competitive, demanding rapid feature releases and adaptability. TechGiant needs to estimate the effort and choose an appropriate development methodology.*
+
+**Question 3 (10 Marks)**
+
+a.  TechGiant decides against a purely traditional approach. Compare **Traditional Methods (like Waterfall) vs. Agile Methods** for the ShopSphere project, focusing specifically on how each approach handles requirement changes and the **delivery** of working software to stakeholders. (5 Marks)
+b.  The project manager suggests using the **Unified Process**. Draw a diagram illustrating the **Phases of the Unified Process** (Inception, Elaboration, Construction, Transition) and briefly describe the primary goal of each phase in the context of developing ShopSphere. (5 Marks)
+
+**Question 6 (10 Marks)**
+
+a.  TechGiant needs to estimate the effort for the core "Order Processing" module, estimated to be around 35 KLOC (Thousand Lines of Code) and considered an 'organic' type project with nominal complexity and standard team experience. Using the **Basic COCOMO** model (Effort = a * (KLOC)^b), calculate the estimated effort (in Person-Months) and development time (TDEV = c * (Effort)^d). Use the standard coefficients for an organic project: a=2.4, b=1.05, c=2.5, d=0.38. (4 Marks)
+b.  Explain how the **Intermediate COCOMO** model would provide a more refined estimate compared to the Basic COCOMO for the ShopSphere project by considering cost drivers. Give two examples of cost drivers relevant to this project. (3 Marks)
+c.  Another estimation technique considered is **Function Point Estimation**. Briefly explain the concept behind Function Point analysis and how it differs from LOC-based estimation like COCOMO. What is one advantage of using Function Points? (3 Marks)
+d.  *(Conceptual)* How might a Control Flow Graph (**CFG**) be used conceptually during the **estimation** phase, perhaps related to complexity assessment? (Bonus thought, not graded heavily)
+
+---
+
+**Scenario for Questions 4 & 5:**
+
+*   *CodeCrafters Inc.* is developing a complex financial calculation library for a banking client. The library includes functions for interest calculation, loan amortization schedules, and risk assessment. Accuracy and reliability are paramount. The testing team needs to devise a comprehensive strategy.*
+
+**Question 4 (10 Marks)**
+
+a.  Explain the fundamental **difference between Black Box Testing and White Box Testing**. Which approach would be more suitable for verifying the logical correctness of the interest calculation algorithms within the library, and why? (3 Marks)
+b.  Outline the **Test Strategies for Conventional Software**, perhaps using a diagram (e.g., the spiral or V-model representation of testing levels). Describe the **relationship between Unit Testing, Integration Testing, and System Testing** as they would apply to the financial calculation library. (5 Marks)
+c.  What is the primary goal of **Unit Testing** in this scenario? (2 Marks)
+
+**Question 5 (10 Marks)**
+
+a.  Consider the following pseudo-code for a simple function within the library:
+
+```
+function calculate_bonus(years_served, performance_rating) {
+  bonus = 0;
+  if (years_served > 5) { // Node 1
+    if (performance_rating == 'Excellent') { // Node 2
+      bonus = 1000; // Node 3
+    } else if (performance_rating == 'Good') { // Node 4
+      bonus = 500; // Node 5
+    } else {
+      bonus = 100; // Node 6
+    }
+  } else {
+    bonus = 50; // Node 7
+  }
+  print(bonus); // Node 8 (Implicit Exit Node)
+} // Node 9 (End)
+```
+
+   Draw the **Control Flow Graph (CFG)** for this function and calculate its **Cyclomatic Complexity** using McCabe's formula (V(G) = E - N + 2P or V(G) = Number of Regions or V(G) = Number of Predicate Nodes + 1). Explain what the calculated complexity signifies. (6 Marks - Marked as 100% likely topic)
+b.  Explain the **difference between Top-Down and Bottom-Up Integration Testing approaches**. Which approach might be more beneficial for integrating the modules of the financial calculation library, and why? (4 Marks)
+
+---
+*End of Examination*
