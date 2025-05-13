@@ -10,60 +10,49 @@
 
 *   **Traditional (Waterfall) Model:** In traditional models, the cost of change increases exponentially as the project progresses. Changes identified late in the lifecycle (e.g., during testing or after deployment) are significantly more expensive to implement. This is because early phases (requirements, design) are typically "frozen," and late changes can necessitate extensive rework of documentation, code, and testing efforts.
 *   **Agile Model:** Agile methodologies aim to flatten this cost of change curve. By embracing iterative development, continuous feedback, and frequent deliveries, changes can be incorporated more easily and at a lower cost throughout the project. While the cost still rises, the increase is much more gradual compared to traditional models. Early and frequent feedback helps identify and address necessary changes when they are less impactful.
-
-```mermaid
-graph TD
-    subgraph Traditional Model
-        direction LR
-        X1[Time/Phases] --> Y1{Cost of Change};
-        P1[Requirements] --> P2[Design] --> P3[Implementation] --> P4[Testing] --> P5[Deployment];
-        C1[Low Cost] --> C2[Medium Cost] --> C3[High Cost] --> C4[Very High Cost] --> C5[Extremely High Cost];
+graph LR
+    subgraph "Traditional Model"
+        X1[Time/Phases] --- Y1[Cost of Change]
         style Y1 fill:#f9f,stroke:#333,stroke-width:2px
+    end
+    
+    subgraph "Traditional Phases"
+        P1[Requirements] --> P2[Design] --> P3[Implementation] --> P4[Testing] --> P5[Deployment]
         style P1 fill:#eee,stroke:#333
         style P2 fill:#eee,stroke:#333
         style P3 fill:#eee,stroke:#333
         style P4 fill:#eee,stroke:#333
         style P5 fill:#eee,stroke:#333
-        linkStyle 0 stroke-width:2px,fill:none,stroke:red;
-        subgraph Cost Curve Traditional
-            direction LR
-            CT1(Start) --> CT2(Low) --> CT3(Medium) --> CT4(Exponentially High) --> CT5(Very High)
-            style CT1 fill:none,stroke:none
-            style CT2 fill:none,stroke:none
-            style CT3 fill:none,stroke:none
-            style CT4 fill:none,stroke:none
-            style CT5 fill:none,stroke:none
-            %% This is a conceptual representation. Actual plotting requires x/y coordinates.
-            %% For demonstration, imagine a steep upward curve.
-        end
+    end
+    
+    subgraph "Cost Curve Traditional"
+        CTrad[Traditional Cost: Exponential Growth]
+        style CTrad fill:none,stroke:none
     end
 
-    subgraph Agile Model
-        direction LR
-        X2[Time/Iterations] --> Y2{Cost of Change};
-        I1[Iter 1] --> I2[Iter 2] --> I3[Iter N] --> ID[Deployment];
-        CA1[Low Cost] --> CA2[Slightly Higher] --> CA3[Moderately Higher] --> CA4[Higher but Manageable];
+    subgraph "Agile Model"
+        X2[Time/Iterations] --- Y2[Cost of Change]
         style Y2 fill:#ccf,stroke:#333,stroke-width:2px
+    end
+    
+    subgraph "Agile Iterations"
+        I1[Iter 1] --> I2[Iter 2] --> I3[Iter N] --> ID[Deployment]
         style I1 fill:#eee,stroke:#333
         style I2 fill:#eee,stroke:#333
         style I3 fill:#eee,stroke:#333
         style ID fill:#eee,stroke:#333
-        linkStyle 5 stroke-width:2px,fill:none,stroke:blue;
-         subgraph Cost Curve Agile
-            direction LR
-            CGA1(Start) --> CGA2(Low) --> CGA3(Gradual Increase) --> CGA4(Moderate) --> CGA5(Manageable)
-            style CGA1 fill:none,stroke:none
-            style CGA2 fill:none,stroke:none
-            style CGA3 fill:none,stroke:none
-            style CGA4 fill:none,stroke:none
-            style CGA5 fill:none,stroke:none
-            %% For demonstration, imagine a flatter, gradually rising curve.
-        end
     end
-    note right of Y1 : Cost rises sharply in later stages
-    note right of Y2 : Cost rises more gradually
-```
-*(Conceptual diagram: The Mermaid graph above provides a structural representation. A true plot would show the y-axis (Cost) increasing much more steeply for Traditional vs. Agile over the x-axis (Time/Phases).)*
+    
+    subgraph "Cost Curve Agile"
+        CAgile[Agile Cost: Gradual Growth]
+        style CAgile fill:none,stroke:none
+    end
+    
+    Note1[Cost rises sharply in later stages]
+    Note2[Cost rises more gradually]
+    style Note1 fill:#ffffcc
+    style Note2 fill:#ffffcc
+
 
 ### b) Five P's of Agility
 
@@ -127,75 +116,59 @@ The process typically involves:
 ### a) Data Flow Diagrams (DFD)
 
 **Level 0 DFD (Context Diagram) for SFC Software**
-
-```mermaid
 graph LR
-    User([User]) -->|User Inputs: SRMJEE_Rank, Branch_Choice, Age, Accommodation_Type, Meal_Option, Gender| SFC_System((SRM Fee Calculator SFC));
-    SFC_System -->|Total_Annual_Fee| User;
-
+    User([User]) -->|User Inputs: SRMJEE_Rank, Branch_Choice, Age, Accommodation_Type, Meal_Option, Gender| SFC_System((SRM Fee Calculator SFC))
+    SFC_System -->|Total_Annual_Fee| User
     style User fill:#dae,stroke:#333,stroke-width:2px
     style SFC_System fill:#ade,stroke:#333,stroke-width:4px
-```
 
-**Level 1 DFD for SFC Software**
 
-```mermaid
 graph TD
-    subgraph SFC System (Level 1)
-        User_Input([User Inputs]) --> P1{1.0 Validate Inputs};
-        P1 -- Validated Inputs --> P2{2.0 Calculate Base Tuition Fee};
-        P2 -- Base Tuition Fee --> P3{3.0 Calculate Rank Discount};
-        P1 -- Validated SRMJEE Rank --> P3;
-        P3 -- Discounted Tuition Fee --> P4{4.0 Calculate Gender Discount};
-        P1 -- Validated Gender --> P4;
-        P4 -- Final Tuition Fee --> P6{6.0 Calculate Total Annual Fee};
-        P1 -- Validated Accommodation Type --> P5{5.0 Calculate Ancillary Fees};
-        P1 -- Validated Meal Option --> P5;
-        P5 -- Total Ancillary Fees --> P6;
-        P6 -- Total Annual Fee --> Output_Fee([Total Annual Fee Display]);
-
-        DS_Branch_Fees[Branch Fees Data] --> P2;
-        DS_Accommodation_Fees[Accommodation Fees Data] --> P5;
-        DS_Meal_Fees[Meal Fees Data] --> P5;
-        DS_Rank_Discounts[Rank Discount Rules] --> P3;
-        DS_Gender_Discounts[Gender Discount Rules] --> P4;
-
-        style User_Input fill:#dae,stroke:#333,stroke-width:2px
-        style Output_Fee fill:#dae,stroke:#333,stroke-width:2px
-        style P1 fill:#ade,stroke:#333,stroke-width:2px
-        style P2 fill:#ade,stroke:#333,stroke-width:2px
-        style P3 fill:#ade,stroke:#333,stroke-width:2px
-        style P4 fill:#ade,stroke:#333,stroke-width:2px
-        style P5 fill:#ade,stroke:#333,stroke-width:2px
-        style P6 fill:#ade,stroke:#333,stroke-width:2px
-        style DS_Branch_Fees fill:#fab,stroke:#333,stroke-width:2px
-        style DS_Accommodation_Fees fill:#fab,stroke:#333,stroke-width:2px
-        style DS_Meal_Fees fill:#fab,stroke:#333,stroke-width:2px
-        style DS_Rank_Discounts fill:#fab,stroke:#333,stroke-width:2px
-        style DS_Gender_Discounts fill:#fab,stroke:#333,stroke-width:2px
-    end
-```
+    User_Input([User Inputs]) --> P1[1.0 Validate Inputs]
+    P1 -- Validated Inputs --> P2[2.0 Calculate Base Tuition Fee]
+    P2 -- Base Tuition Fee --> P3[3.0 Calculate Rank Discount]
+    P1 -- Validated SRMJEE Rank --> P3
+    P3 -- Discounted Tuition Fee --> P4[4.0 Calculate Gender Discount]
+    P1 -- Validated Gender --> P4
+    P4 -- Final Tuition Fee --> P6[6.0 Calculate Total Annual Fee]
+    P1 -- Validated Accommodation Type --> P5[5.0 Calculate Ancillary Fees]
+    P1 -- Validated Meal Option --> P5
+    P5 -- Total Ancillary Fees --> P6
+    P6 -- Total Annual Fee --> Output_Fee([Total Annual Fee Display])
+    DS_Branch_Fees[(Branch Fees Data)] --> P2
+    DS_Accommodation_Fees[(Accommodation Fees Data)] --> P5
+    DS_Meal_Fees[(Meal Fees Data)] --> P5
+    DS_Rank_Discounts[(Rank Discount Rules)] --> P3
+    DS_Gender_Discounts[(Gender Discount Rules)] --> P4
+    style User_Input fill:#dae,stroke:#333,stroke-width:2px
+    style Output_Fee fill:#dae,stroke:#333,stroke-width:2px
+    style P1 fill:#ade,stroke:#333,stroke-width:2px
+    style P2 fill:#ade,stroke:#333,stroke-width:2px
+    style P3 fill:#ade,stroke:#333,stroke-width:2px
+    style P4 fill:#ade,stroke:#333,stroke-width:2px
+    style P5 fill:#ade,stroke:#333,stroke-width:2px
+    style P6 fill:#ade,stroke:#333,stroke-width:2px
+    style DS_Branch_Fees fill:#fab,stroke:#333,stroke-width:2px
+    style DS_Accommodation_Fees fill:#fab,stroke:#333,stroke-width:2px
+    style DS_Meal_Fees fill:#fab,stroke:#333,stroke-width:2px
+    style DS_Rank_Discounts fill:#fab,stroke:#333,stroke-width:2px
+    style DS_Gender_Discounts fill:#fab,stroke:#333,stroke-width:2px
 
 **Level 2 DFD for Process 3.0 (Calculate Rank Discount)**
 
-```mermaid
 graph TD
-    subgraph Process 3.0 Calculate Rank Discount (Level 2)
-        Input_BaseTuitionFee(Base Tuition Fee) --> P3_1{3.1 Determine Rank Category};
-        Input_SRMJEE_Rank(Validated SRMJEE Rank) --> P3_1;
-        DS_Rank_Discount_Rules[Rank Discount Rules] --> P3_1;
-        P3_1 -- Rank Category, Discount Percentage --> P3_2{3.2 Apply Discount};
-        Input_BaseTuitionFee --> P3_2;
-        P3_2 -- Discounted Tuition Fee --> Output_DiscountedTuitionFee(Discounted Tuition Fee);
-
-        style Input_BaseTuitionFee fill:#eee,stroke:#333
-        style Input_SRMJEE_Rank fill:#eee,stroke:#333
-        style Output_DiscountedTuitionFee fill:#eee,stroke:#333
-        style P3_1 fill:#ade,stroke:#333,stroke-width:2px
-        style P3_2 fill:#ade,stroke:#333,stroke-width:2px
-        style DS_Rank_Discount_Rules fill:#fab,stroke:#333,stroke-width:2px
-    end
-```
+    Input_BaseTuitionFee[Base Tuition Fee] --> P3_1[3.1 Determine Rank Category]
+    Input_SRMJEE_Rank[Validated SRMJEE Rank] --> P3_1
+    DS_Rank_Discount_Rules[(Rank Discount Rules)] --> P3_1
+    P3_1 -- Rank Category, Discount Percentage --> P3_2[3.2 Apply Discount]
+    Input_BaseTuitionFee --> P3_2
+    P3_2 -- Discounted Tuition Fee --> Output_DiscountedTuitionFee[Discounted Tuition Fee]
+    style Input_BaseTuitionFee fill:#eee,stroke:#333
+    style Input_SRMJEE_Rank fill:#eee,stroke:#333
+    style Output_DiscountedTuitionFee fill:#eee,stroke:#333
+    style P3_1 fill:#ade,stroke:#333,stroke-width:2px
+    style P3_2 fill:#ade,stroke:#333,stroke-width:2px
+    style DS_Rank_Discount_Rules fill:#fab,stroke:#333,stroke-width:2px
 
 ### b) Data Dictionary for SFC Software
 
@@ -363,59 +336,30 @@ In essence, striving for high cohesion within modules and low coupling between m
 
 ### a) Pseudocode
 
-```pseudocode
-PROCEDURE CalculateElectricityBill
-  INPUT: unitsConsumed (Integer)
-  OUTPUT: electricityBill (Real)
-
-  CONSTANT RATE_TIER1 = 3.00  // For 1 to 50 units
-  CONSTANT RATE_TIER2 = 3.50  // For 51 to 100 units
-  CONSTANT RATE_TIER3 = 4.75  // For 101 to 150 units
-  CONSTANT RATE_TIER4 = 6.50  // For 151 units and above
-
-  CONSTANT LIMIT_TIER1 = 50
-  CONSTANT LIMIT_TIER2 = 100
-  CONSTANT LIMIT_TIER3 = 150
-
-  DECLARE billTier1, billTier2, billTier3, billTier4 AS Real
-  SET billTier1 = 0
-  SET billTier2 = 0
-  SET billTier3 = 0
-  SET billTier4 = 0
-
-  IF unitsConsumed <= 0 THEN
-    SET electricityBill = 0
-  ELSE
-    IF unitsConsumed > 0 THEN
-      IF unitsConsumed <= LIMIT_TIER1 THEN
-        billTier1 = unitsConsumed * RATE_TIER1
-      ELSE // unitsConsumed > LIMIT_TIER1
-        billTier1 = LIMIT_TIER1 * RATE_TIER1
-
-        IF unitsConsumed <= LIMIT_TIER2 THEN
-          billTier2 = (unitsConsumed - LIMIT_TIER1) * RATE_TIER2
-        ELSE // unitsConsumed > LIMIT_TIER2
-          billTier2 = (LIMIT_TIER2 - LIMIT_TIER1) * RATE_TIER2
-
-          IF unitsConsumed <= LIMIT_TIER3 THEN
-            billTier3 = (unitsConsumed - LIMIT_TIER2) * RATE_TIER3
-          ELSE // unitsConsumed > LIMIT_TIER3
-            billTier3 = (LIMIT_TIER3 - LIMIT_TIER2) * RATE_TIER3
-            billTier4 = (unitsConsumed - LIMIT_TIER3) * RATE_TIER4
-          END IF
-        END IF
-      END IF
-    END IF
-    SET electricityBill = billTier1 + billTier2 + billTier3 + billTier4
-  END IF
-
-  DISPLAY "Total Electricity Bill: ", electricityBill
-END PROCEDURE
-```
+graph TD
+    A[Start: Input unitsConsumed] --> B{unitsConsumed <= 0?}
+    B -- Yes --> C[electricityBill = 0]
+    B -- No --> D{unitsConsumed <= LIMIT_TIER1?}
+    D -- Yes --> E[billTier1 = unitsConsumed * RATE_TIER1]
+    D -- No --> F[billTier1 = LIMIT_TIER1 * RATE_TIER1]
+    F --> G{unitsConsumed <= LIMIT_TIER2?}
+    E --> K[electricityBill = billTier1 + billTier2 + billTier3 + billTier4]
+    G -- Yes --> H[billTier2 = (unitsConsumed - LIMIT_TIER1) * RATE_TIER2]
+    G -- No --> I[billTier2 = (LIMIT_TIER2 - LIMIT_TIER1) * RATE_TIER2]
+    I --> J{unitsConsumed <= LIMIT_TIER3?}
+    H --> K
+    J -- Yes --> L[billTier3 = (unitsConsumed - LIMIT_TIER2) * RATE_TIER3]
+    J -- No --> M[billTier3 = (LIMIT_TIER3 - LIMIT_TIER2) * RATE_TIER3]
+    M --> N[billTier4 = (unitsConsumed - LIMIT_TIER3) * RATE_TIER4]
+    L --> K
+    N --> K
+    K --> O[Display electricityBill]
+    C --> O
+    O --> P[End]
 
 ### b) Control Flow Graph (CFG)
 
-```mermaid
+mermaid
 graph TD
     A[Start: Input unitsConsumed] --> B{unitsConsumed <= 0?};
     B -- Yes --> C[electricityBill = 0];
@@ -436,7 +380,6 @@ graph TD
     K --> O[Display electricityBill];
     C --> O;
     O --> P[End];
-
     %% Node Key:
     %% A: Start
     %% B: unitsConsumed <= 0
@@ -454,7 +397,7 @@ graph TD
     %% K: sum bills
     %% O: Display
     %% P: End
-```
+
 
 Nodes (N): A, B, C, D, E, F, G, H, I, J, L, M, N, K, O, P (16 nodes)
 Edges (E):
