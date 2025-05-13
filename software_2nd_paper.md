@@ -11,7 +11,7 @@
 *   **Traditional (Waterfall) Model:** In traditional models, the cost of change increases exponentially as the project progresses. Changes identified late in the lifecycle (e.g., during testing or after deployment) are significantly more expensive to implement. This is because early phases (requirements, design) are typically "frozen," and late changes can necessitate extensive rework of documentation, code, and testing efforts.
 *   **Agile Model:** Agile methodologies aim to flatten this cost of change curve. By embracing iterative development, continuous feedback, and frequent deliveries, changes can be incorporated more easily and at a lower cost throughout the project. While the cost still rises, the increase is much more gradual compared to traditional models. Early and frequent feedback helps identify and address necessary changes when they are less impactful.
 
-mermaid
+```mermaid
 graph TD
     subgraph Traditional Model
         direction LR
@@ -37,7 +37,8 @@ graph TD
             %% For demonstration, imagine a steep upward curve.
         end
     end
-   subgraph Agile Model
+
+    subgraph Agile Model
         direction LR
         X2[Time/Iterations] --> Y2{Cost of Change};
         I1[Iter 1] --> I2[Iter 2] --> I3[Iter N] --> ID[Deployment];
@@ -61,7 +62,7 @@ graph TD
     end
     note right of Y1 : Cost rises sharply in later stages
     note right of Y2 : Cost rises more gradually
-
+```
 *(Conceptual diagram: The Mermaid graph above provides a structural representation. A true plot would show the y-axis (Cost) increasing much more steeply for Traditional vs. Agile over the x-axis (Time/Phases).)*
 
 ### b) Five P's of Agility
@@ -127,17 +128,18 @@ The process typically involves:
 
 **Level 0 DFD (Context Diagram) for SFC Software**
 
-mermaid
+```mermaid
 graph LR
     User([User]) -->|User Inputs: SRMJEE_Rank, Branch_Choice, Age, Accommodation_Type, Meal_Option, Gender| SFC_System((SRM Fee Calculator SFC));
     SFC_System -->|Total_Annual_Fee| User;
+
     style User fill:#dae,stroke:#333,stroke-width:2px
     style SFC_System fill:#ade,stroke:#333,stroke-width:4px
-
+```
 
 **Level 1 DFD for SFC Software**
 
-mermaid
+```mermaid
 graph TD
     subgraph SFC System (Level 1)
         User_Input([User Inputs]) --> P1{1.0 Validate Inputs};
@@ -151,11 +153,13 @@ graph TD
         P1 -- Validated Meal Option --> P5;
         P5 -- Total Ancillary Fees --> P6;
         P6 -- Total Annual Fee --> Output_Fee([Total Annual Fee Display]);
+
         DS_Branch_Fees[Branch Fees Data] --> P2;
         DS_Accommodation_Fees[Accommodation Fees Data] --> P5;
         DS_Meal_Fees[Meal Fees Data] --> P5;
         DS_Rank_Discounts[Rank Discount Rules] --> P3;
         DS_Gender_Discounts[Gender Discount Rules] --> P4;
+
         style User_Input fill:#dae,stroke:#333,stroke-width:2px
         style Output_Fee fill:#dae,stroke:#333,stroke-width:2px
         style P1 fill:#ade,stroke:#333,stroke-width:2px
@@ -170,11 +174,11 @@ graph TD
         style DS_Rank_Discounts fill:#fab,stroke:#333,stroke-width:2px
         style DS_Gender_Discounts fill:#fab,stroke:#333,stroke-width:2px
     end
-
+```
 
 **Level 2 DFD for Process 3.0 (Calculate Rank Discount)**
 
-mermaid
+```mermaid
 graph TD
     subgraph Process 3.0 Calculate Rank Discount (Level 2)
         Input_BaseTuitionFee(Base Tuition Fee) --> P3_1{3.1 Determine Rank Category};
@@ -183,6 +187,7 @@ graph TD
         P3_1 -- Rank Category, Discount Percentage --> P3_2{3.2 Apply Discount};
         Input_BaseTuitionFee --> P3_2;
         P3_2 -- Discounted Tuition Fee --> Output_DiscountedTuitionFee(Discounted Tuition Fee);
+
         style Input_BaseTuitionFee fill:#eee,stroke:#333
         style Input_SRMJEE_Rank fill:#eee,stroke:#333
         style Output_DiscountedTuitionFee fill:#eee,stroke:#333
@@ -190,7 +195,7 @@ graph TD
         style P3_2 fill:#ade,stroke:#333,stroke-width:2px
         style DS_Rank_Discount_Rules fill:#fab,stroke:#333,stroke-width:2px
     end
-
+```
 
 ### b) Data Dictionary for SFC Software
 
@@ -358,7 +363,7 @@ In essence, striving for high cohesion within modules and low coupling between m
 
 ### a) Pseudocode
 
-pseudocode
+```pseudocode
 PROCEDURE CalculateElectricityBill
   INPUT: unitsConsumed (Integer)
   OUTPUT: electricityBill (Real)
@@ -386,10 +391,12 @@ PROCEDURE CalculateElectricityBill
         billTier1 = unitsConsumed * RATE_TIER1
       ELSE // unitsConsumed > LIMIT_TIER1
         billTier1 = LIMIT_TIER1 * RATE_TIER1
+
         IF unitsConsumed <= LIMIT_TIER2 THEN
           billTier2 = (unitsConsumed - LIMIT_TIER1) * RATE_TIER2
         ELSE // unitsConsumed > LIMIT_TIER2
           billTier2 = (LIMIT_TIER2 - LIMIT_TIER1) * RATE_TIER2
+
           IF unitsConsumed <= LIMIT_TIER3 THEN
             billTier3 = (unitsConsumed - LIMIT_TIER2) * RATE_TIER3
           ELSE // unitsConsumed > LIMIT_TIER3
@@ -404,11 +411,11 @@ PROCEDURE CalculateElectricityBill
 
   DISPLAY "Total Electricity Bill: ", electricityBill
 END PROCEDURE
-
+```
 
 ### b) Control Flow Graph (CFG)
 
-mermaid
+```mermaid
 graph TD
     A[Start: Input unitsConsumed] --> B{unitsConsumed <= 0?};
     B -- Yes --> C[electricityBill = 0];
@@ -429,6 +436,7 @@ graph TD
     K --> O[Display electricityBill];
     C --> O;
     O --> P[End];
+
     %% Node Key:
     %% A: Start
     %% B: unitsConsumed <= 0
@@ -446,7 +454,7 @@ graph TD
     %% K: sum bills
     %% O: Display
     %% P: End
-
+```
 
 Nodes (N): A, B, C, D, E, F, G, H, I, J, L, M, N, K, O, P (16 nodes)
 Edges (E):
