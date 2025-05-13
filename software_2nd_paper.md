@@ -60,8 +60,8 @@ graph TD
             %% For demonstration, imagine a flatter, gradually rising curve.
         end
     end
-    note right of Y1 : Cost rises sharply in later stages
-    note right of Y2 : Cost rises more gradually
+    note right of Y1 "Cost rises sharply in later stages"
+    note right of Y2 "Cost rises more gradually"
 ```
 *(Conceptual diagram: The Mermaid graph above provides a structural representation. A true plot would show the y-axis (Cost) increasing much more steeply for Traditional vs. Agile over the x-axis (Time/Phases).)*
 
@@ -141,24 +141,24 @@ graph LR
 
 ```mermaid
 graph TD
-    subgraph SFC System (Level 1)
-        User_Input([User Inputs]) --> P1{1.0 Validate Inputs};
-        P1 -- Validated Inputs --> P2{2.0 Calculate Base Tuition Fee};
-        P2 -- Base Tuition Fee --> P3{3.0 Calculate Rank Discount};
-        P1 -- Validated SRMJEE Rank --> P3;
-        P3 -- Discounted Tuition Fee --> P4{4.0 Calculate Gender Discount};
-        P1 -- Validated Gender --> P4;
-        P4 -- Final Tuition Fee --> P6{6.0 Calculate Total Annual Fee};
-        P1 -- Validated Accommodation Type --> P5{5.0 Calculate Ancillary Fees};
-        P1 -- Validated Meal Option --> P5;
-        P5 -- Total Ancillary Fees --> P6;
-        P6 -- Total Annual Fee --> Output_Fee([Total Annual Fee Display]);
+    subgraph "SFC System (Level 1)"
+        User_Input([User Inputs]) --> P1["1.0 Validate Inputs"];
+        P1 -- "Validated Inputs" --> P2["2.0 Calculate Base Tuition Fee"];
+        P2 -- "Base Tuition Fee" --> P3["3.0 Calculate Rank Discount"];
+        P1 -- "Validated SRMJEE Rank" --> P3;
+        P3 -- "Discounted Tuition Fee" --> P4["4.0 Calculate Gender Discount"];
+        P1 -- "Validated Gender" --> P4;
+        P4 -- "Final Tuition Fee" --> P6["6.0 Calculate Total Annual Fee"];
+        P1 -- "Validated Accommodation Type" --> P5["5.0 Calculate Ancillary Fees"];
+        P1 -- "Validated Meal Option" --> P5;
+        P5 -- "Total Ancillary Fees" --> P6;
+        P6 -- "Total Annual Fee" --> Output_Fee(["Total Annual Fee Display"]);
 
-        DS_Branch_Fees[Branch Fees Data] --> P2;
-        DS_Accommodation_Fees[Accommodation Fees Data] --> P5;
-        DS_Meal_Fees[Meal Fees Data] --> P5;
-        DS_Rank_Discounts[Rank Discount Rules] --> P3;
-        DS_Gender_Discounts[Gender Discount Rules] --> P4;
+        DS_Branch_Fees(["Branch Fees Data"]) --> P2;
+        DS_Accommodation_Fees(["Accommodation Fees Data"]) --> P5;
+        DS_Meal_Fees(["Meal Fees Data"]) --> P5;
+        DS_Rank_Discounts(["Rank Discount Rules"]) --> P3;
+        DS_Gender_Discounts(["Gender Discount Rules"]) --> P4;
 
         style User_Input fill:#dae,stroke:#333,stroke-width:2px
         style Output_Fee fill:#dae,stroke:#333,stroke-width:2px
@@ -180,13 +180,13 @@ graph TD
 
 ```mermaid
 graph TD
-    subgraph Process 3.0 Calculate Rank Discount (Level 2)
-        Input_BaseTuitionFee(Base Tuition Fee) --> P3_1{3.1 Determine Rank Category};
-        Input_SRMJEE_Rank(Validated SRMJEE Rank) --> P3_1;
-        DS_Rank_Discount_Rules[Rank Discount Rules] --> P3_1;
-        P3_1 -- Rank Category, Discount Percentage --> P3_2{3.2 Apply Discount};
+    subgraph "Process 3.0 Calculate Rank Discount (Level 2)"
+        Input_BaseTuitionFee(["Base Tuition Fee"]) --> P3_1["3.1 Determine Rank Category"];
+        Input_SRMJEE_Rank(["Validated SRMJEE Rank"]) --> P3_1;
+        DS_Rank_Discount_Rules(["Rank Discount Rules"]) --> P3_1;
+        P3_1 -- "Rank Category, Discount Percentage" --> P3_2["3.2 Apply Discount"];
         Input_BaseTuitionFee --> P3_2;
-        P3_2 -- Discounted Tuition Fee --> Output_DiscountedTuitionFee(Discounted Tuition Fee);
+        P3_2 -- "Discounted Tuition Fee" --> Output_DiscountedTuitionFee(["Discounted Tuition Fee"]);
 
         style Input_BaseTuitionFee fill:#eee,stroke:#333
         style Input_SRMJEE_Rank fill:#eee,stroke:#333
@@ -417,20 +417,20 @@ END PROCEDURE
 
 ```mermaid
 graph TD
-    A[Start: Input unitsConsumed] --> B{unitsConsumed <= 0?};
-    B -- Yes --> C[electricityBill = 0];
-    B -- No --> D{unitsConsumed <= LIMIT_TIER1 (50)?};
-    D -- Yes --> E[billTier1 = unitsConsumed * RATE_TIER1];
-    D -- No --> F[billTier1 = LIMIT_TIER1 * RATE_TIER1];
-    F --> G{unitsConsumed <= LIMIT_TIER2 (100)?};
-    E --> K[electricityBill = billTier1 + billTier2 + billTier3 + billTier4];
-    G -- Yes --> H[billTier2 = (unitsConsumed - LIMIT_TIER1) * RATE_TIER2];
-    G -- No --> I[billTier2 = (LIMIT_TIER2 - LIMIT_TIER1) * RATE_TIER2];
-    I --> J{unitsConsumed <= LIMIT_TIER3 (150)?};
+    A["Start: Input unitsConsumed"] --> B{"unitsConsumed <= 0?"};
+    B -- Yes --> C["electricityBill = 0"];
+    B -- No --> D{"unitsConsumed <= LIMIT_TIER1 (50)?"};
+    D -- Yes --> E["billTier1 = unitsConsumed * RATE_TIER1"];
+    D -- No --> F["billTier1 = LIMIT_TIER1 * RATE_TIER1"];
+    F --> G{"unitsConsumed <= LIMIT_TIER2 (100)?"};
+    E --> K["electricityBill = billTier1 + billTier2 + billTier3 + billTier4"];
+    G -- Yes --> H["billTier2 = (unitsConsumed - LIMIT_TIER1) * RATE_TIER2"];
+    G -- No --> I["billTier2 = (LIMIT_TIER2 - LIMIT_TIER1) * RATE_TIER2"];
+    I --> J{"unitsConsumed <= LIMIT_TIER3 (150)?"};
     H --> K;
-    J -- Yes --> L[billTier3 = (unitsConsumed - LIMIT_TIER2) * RATE_TIER3];
-    J -- No --> M[billTier3 = (LIMIT_TIER3 - LIMIT_TIER2) * RATE_TIER3];
-    M --> N[billTier4 = (unitsConsumed - LIMIT_TIER3) * RATE_TIER4];
+    J -- Yes --> L["billTier3 = (unitsConsumed - LIMIT_TIER2) * RATE_TIER3"];
+    J -- No --> M["billTier3 = (LIMIT_TIER3 - LIMIT_TIER2) * RATE_TIER3"];
+    M --> N["billTier4 = (unitsConsumed - LIMIT_TIER3) * RATE_TIER4"];
     L --> K;
     N --> K;
     K --> O[Display electricityBill];
