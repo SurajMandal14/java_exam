@@ -722,14 +722,15 @@ MyApplication/
 
 ```mermaid
 graph LR
-    A[onCreate()] --> B[onStart()];
-    B --> C[onResume()];
-    C --> D((Running));
-    D --> E[onPause()];
-    E --> F[onStop()];
-    F --> G[onDestroy()];
+    A[onCreate] --> B(onStart);
+    B --> C(onResume);
+    C --> D{{Running}};
+    D --> E(onPause);
+    E --> F(onStop);
+    F --> G(onDestroy);
     E --> C;
     F --> A;
+
 ```
 
 **6. Write code to implement a RecyclerView to display a list of items.**
