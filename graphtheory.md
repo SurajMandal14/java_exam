@@ -304,7 +304,6 @@
 
 
 
-````markdown
 ## Answers to Graph Theory Questions
 
 Here are detailed answers to the questions on graph theory, covering Prüfer codes, Cayley's Theorem, Laplacian matrices, matchings, tree properties, Hall's Theorem, chromatic numbers, interval graphs, and planarity.
@@ -425,18 +424,19 @@ Kirchhoff’s Matrix Tree Theorem states that the number of spanning trees is eq
 **Example:**
 
 Using the Laplacian matrix from above:
-````
 
-[[2, -1, -1], [-1, 2, -1], [-1, -1, 2]]
-
-```javascript
-
-Remove the first row and first column:
+```
+[[2, -1, -1],
+ [-1, 2, -1],
+ [-1, -1, 2]]
 ```
 
-[[2, -1], [-1, 2]]
+Remove the first row and first column:
 
-```javascript
+```
+[[2, -1],
+ [-1, 2]]
+```
 
 Determinant: `(2 * 2) - (-1 * -1) = 4 - 1 = 3`
 
@@ -447,11 +447,14 @@ The number of spanning trees is 3.
 **Proof:**
 
 For a complete graph `K_n`, the Laplacian matrix has `n-1` on the diagonal and `-1` elsewhere.
+
 ```
-
-L = [[n-1, -1, -1, ..., -1], [-1, n-1, -1, ..., -1], [-1, -1, n-1, ..., -1], ..., [-1, -1, -1, ..., n-1]]
-
-````javascript
+L = [[n-1, -1, -1, ..., -1],
+     [-1, n-1, -1, ..., -1],
+     [-1, -1, n-1, ..., -1],
+     ...,
+     [-1, -1, -1, ..., n-1]]
+```
 
 By Kirchhoff's Matrix Tree Theorem, the number of spanning trees is the determinant of any cofactor. Removing the first row and column gives a matrix whose determinant is `n^(n-2)`. This can be shown using properties of determinants and induction.
 
@@ -711,18 +714,14 @@ Since `10 <= 12`, the graph could be planar.
 #### Draw `K3,3` and show why it is not planar using the inequality.
 
 `K3,3` is a complete bipartite graph with two sets of 3 vertices each.
-````
 
-```javascript
-  A---X
- / \ / \
-B---Y
 ```
-
-/ \ /\
-C---Z
-
-```javascript
+      A---X
+     / \ / \
+    B---Y
+   / \ / \
+  C---Z
+```
 
 `K3,3` has 6 vertices and 9 edges.
 
@@ -746,5 +745,4 @@ A triangle has 3 vertices, 3 edges, and 2 faces (including the outer face).
 
 The dual of a triangle is a graph with 2 vertices and 3 edges connecting them. This is a multigraph with two vertices connected by three parallel edges.
 ```
-
 O---O
